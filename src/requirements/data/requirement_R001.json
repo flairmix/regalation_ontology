@@ -1,0 +1,34 @@
+{
+  "id": "R003",
+  "objects": [
+    {
+      "id": "door_leaf_1",
+      "class_name": "Door_leaf",
+      "properties": [
+        {
+          "name": "Width",
+          "value": 900.0,
+          "unit": "Millimeter"
+        }
+      ]
+    },
+    {
+      "id": "apartment_1",
+      "class_name": "Apartment",
+      "relations": [
+        {
+          "property_name": "hasPart",
+          "target": "door_leaf_1"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "type": "Check_property_value_greater",
+      "target": "door_leaf_1",
+      "unit": "Millimeter",
+      "value": 800.0
+    }
+  ]
+}
