@@ -11,9 +11,10 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     Level = ob.add_class("Level", parent_class=Construction)
     Room = ob.add_class("Room", parent_class=Level)
     Zone = ob.add_class("Zone", parent_class=Level)
-    Component = ob.add_class("Component")
+    Component = ob.add_class("Component", parent_class=Level)
     Property = ob.add_class("Property")
     Units = ob.add_class("Units")
+    Literal = ob.add_class("Literal")
 
     # Classes
     Apartment = ob.add_class("Apartment", parent_class=Zone)

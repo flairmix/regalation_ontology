@@ -1,11 +1,9 @@
-# src/cli/main.py
-
 import typer
 from pathlib import Path
 from src.ontology.builder import OntologyBuilder
 from src.ontology.visualizer import visualize
 from src.ontology.base_ontology import create_base_ontology
-from src.requirements.graph_builder import load_base_ontology, add_requirement_example, add_requirement_from_model
+from src.requirements.graph_builder import load_base_ontology, add_requirement_from_model
 from src.requirements.model import Requirement
 
 app = typer.Typer(help="CLI-интерфейс для построения и визуализации строительной онтологии.")
@@ -20,7 +18,7 @@ def build_base(
     ob = create_base_ontology(base_uri=base_uri)
     ob.save(owl_output)
     classes, properties, individuals = ob.get_entities()
-    visualize_with_parents(classes, properties, individuals, filename=html_output)
+    visualize(classes, properties, individuals, filename=html_output)
 
 @app.command()
 def add_requirement(

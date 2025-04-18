@@ -12,17 +12,6 @@ def load_base_ontology(path: str) -> OntologyBuilder:
     return ob
 
 
-def add_requirement_example(ob: OntologyBuilder, req_id: str = "001") -> None:
-    leaf = ob.add_individual("Door_leaf", f"door_leaf_{req_id}")
-    width = ob.add_individual("Width", f"width_{req_id}")
-    value = ob.add_individual("Millimeter", f"val_{req_id}_mm")
-    check = ob.add_individual("Check_property_value_greater", f"check_{req_id}")
-
-    ob.relate_individuals(leaf, "property", width)
-    ob.relate_individuals(width, "value", value)
-    ob.relate_individuals(check, "check", value)
-
-
 def add_requirement_from_model(ob: OntologyBuilder, req: Requirement) -> None:
     instance_map = {}
 

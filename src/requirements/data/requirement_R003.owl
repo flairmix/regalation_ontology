@@ -82,7 +82,7 @@
 </owl:Class>
 
 <owl:Class rdf:about="#Component">
-  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf rdf:resource="#Level"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Property">
@@ -90,6 +90,10 @@
 </owl:Class>
 
 <owl:Class rdf:about="#Units">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Literal">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
