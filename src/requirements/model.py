@@ -24,7 +24,13 @@ class CheckEntry(BaseModel):
     unit: Optional[str] = None
     value: Optional[float] = None
 
+class ConditionEntry(BaseModel):
+    type: str  # например, Condition_component_exist
+    target: Optional[str] = None  # id объекта или свойства
+
+
 class Requirement(BaseModel):
     id: str
     objects: List[ObjectInstance]
+    conditions: List[ConditionEntry] = []
     checks: List[CheckEntry]

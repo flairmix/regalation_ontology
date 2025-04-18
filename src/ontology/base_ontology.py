@@ -1,6 +1,11 @@
-# src/ontology/base_ontology.py
-
 from src.ontology.builder import OntologyBuilder
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    level=logging.INFO,  # или DEBUG
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 
 def create_base_ontology(base_uri="http://example.org/ontology#"):
     ob = OntologyBuilder(base_uri=base_uri)
@@ -57,4 +62,13 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     ob.add_object_property("exist", "Condition_component_exist", "Door")
     ob.add_object_property("check", "Check_property_value_greater", "Millimeter")
 
+    try:
+        logger.info("Base ontology created successfully.")
+        logger.info(f"number of classes: {len(list(ob.onto.classes()))}")
+        logger.info(f"number of properties: {len(list(ob.onto.object_properties()))}")    
+        logger.info(f"number of individuals: {len(list(ob.onto.individuals()))}")
+        logger.info(f"number of data properties: {len(list(ob.onto.data_properties()))}")
+    except Exception() as e:
+        logger.error(f"Error creating base ontology: {e}")
+    
     return ob
