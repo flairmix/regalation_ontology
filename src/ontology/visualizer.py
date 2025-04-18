@@ -1,5 +1,3 @@
-# src/ontology/visualizer.py
-
 from pyvis.network import Network
 from owlready2 import Thing
 
@@ -27,10 +25,21 @@ def visualize(classes, object_properties, individuals, filename="ontology.html")
 
     for ind_name, ind_obj in individuals.items():
         cls_name = ind_obj.is_a[0].name
+
+        # Собираем dataproperty для tooltip
+        data_props = []
+        for prop in ind_obj.get_properties():
+            for val in prop[ind_obj]:
+                if isinstance(val, (str, int, float, bool)):
+                    data_props.append(f"{prop.name}: {val}")
+
+        tooltip = "<br>".join([f"Individual of class: {cls_name}"] + data_props)
+
         net.add_node(f"ind_{ind_name}", label=ind_name, shape='dot', color='yellow',
-                     title=f"Individual of class: {cls_name}", group='individual')
+                     title=tooltip, group='individual')
         net.add_edge(f"class_{cls_name}", f"ind_{ind_name}", arrows='to', color='black', width=2, group='edge_ind')
 
+    # ObjectProperty
     prop_counter = 0
     for prop_name, _ in object_properties.items():
         for subj in individuals.values():
@@ -41,6 +50,28 @@ def visualize(classes, object_properties, individuals, filename="ontology.html")
                              title=f"{prop_name}: {subj.name} → {obj.name}", group='property')
                 net.add_edge(f"ind_{subj.name}", prop_node_id, arrows='to', color='orange', width=2, group='edge_prop')
                 net.add_edge(prop_node_id, f"ind_{obj.name}", arrows='to', color='orange', width=2, group='edge_prop')
+
+    # DataProperty
+    data_counter = 0
+    for ind_name, ind_obj in individuals.items():
+        for prop in ind_obj.get_properties():
+            values = prop[ind_obj]
+            for val in values:
+                if isinstance(val, (str, int, float, bool)):
+                    data_counter += 1
+                    val_node_id = f"data_{ind_name}_{prop.name}_{data_counter}"
+                    net.add_node(val_node_id,
+                                 label=str(val),
+                                 shape='diamond',
+                                 color='lightgreen',
+                                 title=f"{prop.name}: {val}",
+                                 group='data')
+                    net.add_edge(f"ind_{ind_name}", val_node_id,
+                                 label=prop.name,
+                                 arrows='to',
+                                 color='green',
+                                 width=2,
+                                 group='edge_data')
 
     html_content = net.generate_html()
 
@@ -91,6 +122,7 @@ def visualize(classes, object_properties, individuals, filename="ontology.html")
         <button onclick=\"toggleGroup('class')\">Toggle Classes</button>
         <button onclick=\"toggleGroup('individual')\">Toggle Individuals</button>
         <button onclick=\"toggleGroup('property')\">Toggle Properties</button>
+        <button onclick=\"toggleGroup('data')\">Toggle Data</button>
     </div>
     """
 

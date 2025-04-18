@@ -7,6 +7,7 @@ class OntologyBuilder:
         self.onto = get_ontology(base_uri)
         self.classes = {}
         self.object_properties = {}
+        self.data_properties = {}
         self.individuals = {}
 
     def add_class(self, class_name, parent_class=Thing):
@@ -39,3 +40,18 @@ class OntologyBuilder:
 
     def get_entities(self):
         return self.classes, self.object_properties, self.individuals
+    
+    def add_data_property(self, property_name, domain, dtype=str): 
+        if property_name not in self.data_properties:
+            with self.onto:
+                new_property = types.new_class(property_name, (DataProperty,))
+                new_property.domain = [self.classes[domain]]
+                new_property.range = [dtype]
+            self.data_properties[property_name] = new_property
+        return self.data_properties[property_name]
+    
+    def assign_data_property(self, subject, property_name, value): 
+        """Присвоить значение data property для индивидуала."""
+        if property_name not in self.data_properties:
+            raise ValueError(f"DataProperty '{property_name}' not found. Call add_data_property first.")
+        getattr(subject, property_name).append(value)

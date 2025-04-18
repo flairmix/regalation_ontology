@@ -49,9 +49,23 @@ def add_requirement_from_model(ob: OntologyBuilder, req: Requirement) -> None:
     for check in req.checks:
         logger.info(f"Adding check {check.type} for requirement {req.id}")
         check_node = ob.add_individual(check.type, f"check_{req.id}_{check.type.lower()}")
+
+        if check.target in instance_map:
+            ob.relate_individuals(check_node, "check", instance_map[check.target])
+        else:
+            raise KeyError(f"Check target '{check.target}' not found in instance map.")
+        
+        ob.add_data_property("expectedValue", domain=check.type, dtype=float)
+        ob.assign_data_property(check_node, "expectedValue", check.value)
+   
+        # Единицу измерения тоже можно как DataProperty
         if check.unit:
-            val_node = ob.add_individual(check.unit, f"checkval_{req.id}_{check.type.lower()}_{check.unit.lower()}")
-            ob.relate_individuals(check_node, "check", val_node)
+            ob.add_data_property("unit", domain=check.type, dtype=str)
+            ob.assign_data_property(check_node, "unit", check.unit)
+            
+        # if check.unit:
+        #     val_node = ob.add_individual(check.unit, f"checkval_{req.id}_{check.type.lower()}_{check.unit.lower()}")
+        #     ob.relate_individuals(check_node, "check", val_node)
 
     for obj in req.objects:
         logger.info(f"Adding relations for object {obj.id}")

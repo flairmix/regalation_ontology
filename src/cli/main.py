@@ -1,3 +1,4 @@
+# import sys
 import typer
 from pathlib import Path
 from src.ontology.builder import OntologyBuilder
@@ -5,6 +6,9 @@ from src.ontology.visualizer import visualize
 from src.ontology.base_ontology import create_base_ontology
 from src.requirements.graph_builder import load_base_ontology, add_requirement_from_model
 from src.requirements.model import Requirement
+
+
+# sys.stdout.reconfigure(encoding='utf-8')
 
 app = typer.Typer(help="CLI-интерфейс для построения и визуализации строительной онтологии.")
 
@@ -60,7 +64,7 @@ def add_requirement(
     classes, props, inds = ob.get_entities()
     visualize(classes, props, inds, filename=str(html_path))
 
-    typer.echo(f"✅ Требование сохранено:\n- {owl_path}\n- {html_path}")
+    typer.echo(f"[ок] Требование сохранено:\n- {owl_path}\n- {html_path}")
 
 if __name__ == "__main__":
     app()

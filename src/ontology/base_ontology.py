@@ -64,10 +64,10 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
 
     try:
         logger.info("Base ontology created successfully.")
-        logger.info(f"number of classes: {len(list(ob.onto.classes()))}")
-        logger.info(f"number of properties: {len(list(ob.onto.object_properties()))}")    
-        logger.info(f"number of individuals: {len(list(ob.onto.individuals()))}")
-        logger.info(f"number of data properties: {len(list(ob.onto.data_properties()))}")
+        logger.info(f"- number of classes: {len(list(ob.onto.classes()))}")
+        logger.info(f"- number of properties: {len(list(ob.onto.object_properties()))}")    
+        logger.info(f"- number of individuals: {len(list(ob.onto.individuals()))}")
+        logger.info(f"- number of data properties: {len(list(ob.onto.data_properties()))}")
     except Exception() as e:
         logger.error(f"Error creating base ontology: {e}")
     
