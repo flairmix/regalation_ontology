@@ -25,11 +25,18 @@ def add_requirement_from_model(ob: OntologyBuilder, req: Requirement) -> None:
         instance = ob.add_individual(obj.class_name, obj.id)
         instance_map[obj.id] = instance
 
-        for prop in obj.properties or []:
-            prop_ind = ob.add_individual(prop.name, f"{obj.id}_{prop.name.lower()}")
-            ob.relate_individuals(instance, "property", prop_ind)
+        if obj.properties:
+            for property in obj.properties:
+
+                ob.add_data_property(f"{property.name}", domain=obj.class_name)
+                ob.assign_data_property(instance, f"{property.name}", property.value_str)
+    
+
+        # for prop in obj.properties or []:
+        #     prop_ind = ob.add_individual(prop.name, f"{obj.id}_{prop.name.lower()}")
+        #     ob.relate_individuals(instance, "property", prop_ind)
             
-            instance_map[f"{obj.id}_{prop.name.lower()}"] = prop_ind
+        #     instance_map[f"{obj.id}_{prop.name.lower()}"] = prop_ind
 
     validation_node = ob.add_individual("Validation", f"Validation{req.id}")
 
@@ -38,7 +45,7 @@ def add_requirement_from_model(ob: OntologyBuilder, req: Requirement) -> None:
         condition_node = ob.add_individual(condition.type, f"condition_{req.id}_{condition.type.lower()}")
         if condition.target in instance_map:
             ob.relate_individuals(condition_node, "exist", instance_map[condition.target])
-            ob.relate_individuals(validation_node, "check", condition_node)
+            ob.relate_individuals(validation_node, "exist", condition_node)
 
         else:
             raise KeyError(f"Condition target '{condition.target}' not found in instance map.")
@@ -46,7 +53,7 @@ def add_requirement_from_model(ob: OntologyBuilder, req: Requirement) -> None:
 
     for check in req.checks:
         logger.info(f"Adding check {check.type} for requirement {req.id}")
-        check_node = ob.add_individual(check.type, f"check_{req.id}_{check.type.lower()}")
+        check_node = ob.add_individual(check.type, f"{check.property}".lower())
 
         if check.target in instance_map:
             ob.relate_individuals(check_node, "check", instance_map[check.target])

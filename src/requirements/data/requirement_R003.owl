@@ -23,6 +23,28 @@
   <rdfs:range rdf:resource="#Component"/>
 </owl:ObjectProperty>
 
+<owl:DatatypeProperty rdf:about="#expectedValue">
+  <rdfs:domain rdf:resource="#Check_property_value_greater"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="#unit">
+  <rdfs:domain rdf:resource="#Check_property_value_greater"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="#Component">
+  <rdfs:subClassOf rdf:resource="#Level"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Condition">
+  <rdfs:subClassOf rdf:resource="#Validation"/>
+</owl:Class>
+
+<owl:Class rdf:about="#Check">
+  <rdfs:subClassOf rdf:resource="#Validation"/>
+</owl:Class>
+
 <owl:Class rdf:about="#Site">
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
@@ -40,10 +62,6 @@
 </owl:Class>
 
 <owl:Class rdf:about="#Zone">
-  <rdfs:subClassOf rdf:resource="#Level"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Component">
   <rdfs:subClassOf rdf:resource="#Level"/>
 </owl:Class>
 
@@ -77,6 +95,8 @@
 
 <owl:Class rdf:about="#Type_Function">
   <rdfs:subClassOf rdf:resource="#Property"/>
+  <rdfs:domain rdf:resource="#Door"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Width">
@@ -99,20 +119,12 @@
   <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
 </owl:Class>
 
-<owl:Class rdf:about="#Condition">
-  <rdfs:subClassOf rdf:resource="#Validation"/>
-</owl:Class>
-
 <owl:Class rdf:about="#Condition_component_exist">
   <rdfs:subClassOf rdf:resource="#Condition"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Condition_property_value_equal">
   <rdfs:subClassOf rdf:resource="#Condition"/>
-</owl:Class>
-
-<owl:Class rdf:about="#Check">
-  <rdfs:subClassOf rdf:resource="#Validation"/>
 </owl:Class>
 
 <owl:Class rdf:about="#Check_property_value_equal">
@@ -126,6 +138,34 @@
 <owl:Class rdf:about="#Check_property_value_less">
   <rdfs:subClassOf rdf:resource="#Check"/>
 </owl:Class>
+
+<owl:NamedIndividual rdf:about="#apartment_1">
+  <rdf:type rdf:resource="#Apartment"/>
+  <hasPart rdf:resource="#door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#door">
+  <rdf:type rdf:resource="#Door"/>
+  <Type_Function rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Apartment_Entry_door</Type_Function>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ValidationR003">
+  <rdf:type rdf:resource="#Validation"/>
+  <exist rdf:resource="#condition_R003_condition_component_exist"/>
+  <check rdf:resource="#width"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#condition_R003_condition_component_exist">
+  <rdf:type rdf:resource="#Condition_component_exist"/>
+  <exist rdf:resource="#door"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#width">
+  <rdf:type rdf:resource="#Check_property_value_greater"/>
+  <check rdf:resource="#door"/>
+  <expectedValue rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">800.0</expectedValue>
+  <unit rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Millimeter</unit>
+</owl:NamedIndividual>
 
 
 </rdf:RDF>

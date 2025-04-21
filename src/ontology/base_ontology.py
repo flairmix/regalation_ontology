@@ -24,11 +24,13 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     # Classes
     Apartment = ob.add_class("Apartment", parent_class=Zone)
     Door = ob.add_class("Door", parent_class=Component)
+    Window = ob.add_class("Window", parent_class=Component)
 
     # Subclasses
     Door_leaf = ob.add_class("Door_leaf", parent_class=Door)
 
     # Properties
+    Type_Function = ob.add_class("Type_Function", parent_class=Property)
     Width = ob.add_class("Width", parent_class=Property)
     Height = ob.add_class("Height", parent_class=Property)
     Distance = ob.add_class("Distance", parent_class=Property)
@@ -37,12 +39,12 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     Millimeter = ob.add_class("Millimeter", parent_class=Units)
 
     # # Relationships
-    ob.add_object_property("hasPart", "Apartment", "Door")
-    ob.add_object_property("hasPart", "Door", "Door_leaf")
-    ob.add_object_property("property", "Door_leaf", "Width")
-    ob.add_object_property("value", "Width", "Millimeter")
-    ob.add_object_property("value", "Height", "Millimeter")
-    ob.add_object_property("value", "Condition", "Millimeter")
+    ob.add_object_property("hasPart", "Component", "Component")
+    # ob.add_object_property("hasPart", "Door", "Door_leaf")
+    # ob.add_object_property("property", "Door_leaf", "Width")
+    # ob.add_object_property("value", "Width", "Millimeter")
+    # ob.add_object_property("value", "Height", "Millimeter")
+    # ob.add_object_property("value", "Condition", "Millimeter")
 
     # Validation structure
     Validation = ob.add_class("Validation")
@@ -59,8 +61,8 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     Check_property_value_less = ob.add_class("Check_property_value_less", parent_class=Check)
 
     # Validation relationships
-    ob.add_object_property("exist", "Condition_component_exist", "Door")
-    ob.add_object_property("check", "Check_property_value_greater", "Millimeter")
+    ob.add_object_property("exist", "Condition", "Component")
+    ob.add_object_property("check", "Check", "Component")
 
     try:
         logger.info("Base ontology created successfully.")

@@ -8,6 +8,7 @@ class ObjectProperty(BaseModel):
 class PropertyEntry(BaseModel):
     name: str
     value: Optional[float] = None
+    value_str: Optional[str] = None
     unit: Optional[str] = None
 
 class ObjectInstance(BaseModel):
@@ -19,6 +20,7 @@ class ObjectInstance(BaseModel):
 class CheckEntry(BaseModel):
     type: str  # например, Check_property_value_greater
     target: Optional[str] = None  # id объекта или свойства
+    property: Optional[str] = None 
     unit: Optional[str] = None
     value: Optional[float] = None
 

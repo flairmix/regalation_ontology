@@ -23,12 +23,7 @@
       },
       {
         "id": "door_leaf_1",
-        "class_name": "Door_leaf",
-        "properties": [
-          {
-            "name": "Width"
-          }
-        ]
+        "class_name": "Door_leaf"
       }
     ],
     "conditions": [
@@ -41,6 +36,7 @@
       {
         "type": "Check_property_value_greater",
         "target": "door_leaf_1",
+        "property": "Width",
         "unit": "Millimeter",
         "value": 800.0
       }
