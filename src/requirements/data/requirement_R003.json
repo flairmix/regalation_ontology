@@ -1,0 +1,49 @@
+{
+    "id": "R002",
+    "objects": [
+      {
+        "id": "apartment_1",
+        "class_name": "Apartment",
+        "relations": [
+          {
+            "property_name": "hasPart",
+            "target": "door_1"
+          }
+        ]
+      },
+      {
+        "id": "door_1",
+        "class_name": "Door",
+        "relations": [
+          {
+            "property_name": "hasPart",
+            "target": "door_leaf_1"
+          }
+        ]
+      },
+      {
+        "id": "door_leaf_1",
+        "class_name": "Door_leaf",
+        "properties": [
+          {
+            "name": "Width"
+          }
+        ]
+      }
+    ],
+    "conditions": [
+      {
+        "type": "Condition_component_exist",
+        "target": "door_1"
+      }
+    ],
+    "checks": [
+      {
+        "type": "Check_property_value_greater",
+        "target": "door_leaf_1_width",
+        "unit": "Millimeter",
+        "value": 800.0
+      }
+    ]
+  }
+  

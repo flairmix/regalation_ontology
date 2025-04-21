@@ -151,11 +151,17 @@
 
 <owl:NamedIndividual rdf:about="#door_leaf_1">
   <rdf:type rdf:resource="#Door_leaf"/>
-  <property rdf:resource="#width_door_leaf_1"/>
+  <property rdf:resource="#door_leaf_1_width"/>
 </owl:NamedIndividual>
 
-<owl:NamedIndividual rdf:about="#width_door_leaf_1">
+<owl:NamedIndividual rdf:about="#door_leaf_1_width">
   <rdf:type rdf:resource="#Width"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="#ValidationR002">
+  <rdf:type rdf:resource="#Validation"/>
+  <check rdf:resource="#condition_R002_condition_component_exist"/>
+  <check rdf:resource="#check_R002_check_property_value_greater"/>
 </owl:NamedIndividual>
 
 <owl:NamedIndividual rdf:about="#condition_R002_condition_component_exist">

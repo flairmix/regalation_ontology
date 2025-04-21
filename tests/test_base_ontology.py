@@ -10,7 +10,6 @@ def test_build_base():
     if output_html.exists():
         output_html.unlink()
 
-    # 🚀 Явно указываем путь к python из .venv
     venv_python = Path(".venv/Scripts/python.exe").resolve()
     assert venv_python.exists(), "[ error ] .venv не существует или не создан. Выполни: uv venv .venv"
 

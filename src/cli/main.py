@@ -6,7 +6,7 @@ from src.ontology.visualizer import visualize
 from src.ontology.base_ontology import create_base_ontology
 from src.requirements.graph_builder import load_base_ontology, add_requirement_from_model
 from src.requirements.model import Requirement
-
+import json
 
 # sys.stdout.reconfigure(encoding='utf-8')
 
@@ -30,7 +30,6 @@ def add_requirement(
     base_owl_path: Path = Path("ontology_base.owl")
 ):
     """Добавить требование на основе JSON в базовую онтологию и сохранить его отдельно."""
-    import json
     with open(json_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
     req = Requirement.model_validate(data)

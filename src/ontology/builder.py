@@ -1,5 +1,3 @@
-# src/ontology/builder.py
-
 from owlready2 import get_ontology, Thing, ObjectProperty, DataProperty, types
 
 class OntologyBuilder:

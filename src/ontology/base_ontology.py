@@ -36,7 +36,7 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     # Units
     Millimeter = ob.add_class("Millimeter", parent_class=Units)
 
-    # Relationships
+    # # Relationships
     ob.add_object_property("hasPart", "Apartment", "Door")
     ob.add_object_property("hasPart", "Door", "Door_leaf")
     ob.add_object_property("property", "Door_leaf", "Width")
