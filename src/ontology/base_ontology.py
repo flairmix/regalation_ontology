@@ -14,6 +14,7 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
     Site = ob.add_class("Site")
     Construction = ob.add_class("Construction", parent_class=Site)
     Level = ob.add_class("Level", parent_class=Construction)
+    MechanicalSystem = ob.add_class("MechanicalSystem", parent_class=Construction)
     Room = ob.add_class("Room", parent_class=Level)
     Zone = ob.add_class("Zone", parent_class=Level)
     Component = ob.add_class("Component", parent_class=Level)
@@ -40,11 +41,8 @@ def create_base_ontology(base_uri="http://example.org/ontology#"):
 
     # # Relationships
     ob.add_object_property("hasPart", "Component", "Component")
-    # ob.add_object_property("hasPart", "Door", "Door_leaf")
-    # ob.add_object_property("property", "Door_leaf", "Width")
-    # ob.add_object_property("value", "Width", "Millimeter")
-    # ob.add_object_property("value", "Height", "Millimeter")
-    # ob.add_object_property("value", "Condition", "Millimeter")
+    ob.add_object_property("belongs", "Component", "System")
+
 
     # Validation structure
     Validation = ob.add_class("Validation")
